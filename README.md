@@ -6,7 +6,7 @@
 
 前往 [Releases 页面](../../releases/latest) 下载最新安装包：
 
-MyProcessWorld-0.3.0.exe（Windows x64，约 127 MB，离线即装，内置 MDriver 分子模拟智能体封装版）
+MyProcessWorld-0.4.0.exe（Windows x64，约 127 MB，离线即装，内置 MDriver 分子模拟智能体封装版）
 
 双击安装即可使用。首次使用进入「设置 - 大模型」，填入任意 OpenAI 兼容服务的 API Key 与模型名（DeepSeek、硅基流动、Moonshot、OpenAI 等），完成。
 
@@ -25,7 +25,7 @@ MyProcessWorld-0.3.0.exe（Windows x64，约 127 MB，离线即装，内置 MDri
 | 内置 MDriver 封装版 | 安装包自带 LAMMPS 分子模拟智能体（含官方案例库），装完即用；不需要可在界面一键解绑并删除释放空间 |
 | 多引擎联网检索 | Google、Bing、百度、DuckDuckGo、GitHub 并行检索，按相关性合并去重，代理感知，内网环境也能查资料 |
 | 运行中插话引导 | 任务运行时随时插话纠偏，智能体下一步立即采纳，绝不丢话 |
-| MCP 生态 | 标准 Model Context Protocol 客户端，接入任意 MCP Server 扩展工具；内置「新闻爬虫」一键示例，AI 助手与智能体大军都能调用，也是二次开发模板 |
+| MCP 生态 | 标准 Model Context Protocol 客户端，设置页可视化管理（接入/启停/测试/删除）；内置「网络爬虫」一键示例（搜新闻/爬页面/下载文件/拉 GitHub 代码），AI 助手与智能体大军都能调用，也是把你自己软件接成智能体工具的二次开发模板 |
 | 项目级指令 | 自动读取 AGENTS.md、CLAUDE.md、copilot-instructions.md，进了你的项目就懂你的规矩 |
 | 智能上下文压缩 | 超长任务自动摘要压缩历史，几十步、上百次工具调用不断片 |
 | 长期记忆 | 用户偏好、环境事实、经验教训自动沉淀，踩过的坑下次自动规避 |
@@ -46,14 +46,16 @@ MyProcessWorld-0.3.0.exe（Windows x64，约 127 MB，离线即装，内置 MDri
 - 对 MD 算师下令（如「跑个聚乙烯热解」）：它会自动连上 MDriver，像真人一样在它的输入框里打字、等结果、回报。
 - 不需要时，工具坞点「✕」可解绑，并可选择顺带删除捆绑文件释放磁盘空间（只允许删安装包自带的示例，绝不动你自己的目录）。
 
-## MCP 工具：新闻爬虫示例
+## MCP 工具：网络爬虫示例
 
-「设置 → MCP 外部工具服务器」或智能体大军的工具坞，都有「🗞 一键接入新闻爬虫」：安装一个纯本地 MCP 脚本（`~/.processnet/mcp-examples/news-agent.mjs`，零依赖），暴露 `latest_news` 工具。装好后：
+「设置 → MCP 外部工具服务器」或智能体大军的工具坞，都有「🕸 一键接入网络爬虫」：安装一个纯本地 MCP 脚本（`~/.processnet/mcp-examples/web-agent.mjs`，零依赖），暴露 4 个工具：
 
-- AI 助手智能体模式里说「查一下今天的 AI 新闻」，模型会自动调用 `mcp__news__latest_news`。
-- 智能体大军的总指挥与队员同样能调。
-- 工具坞可「▶ 试用」手动查，也可「✕」随时删除。
-- 脚本本身就是二次开发模板：照着它再写一个工具（天气、股价、内部系统…），在设置里加一行 JSON 即可接入。
+- `latest_news`：爬任意领域最新新闻（Bing → Google News RSS 兜底）。
+- `fetch_page`：抓取网页正文（查资料/读教程/看文档）。
+- `download_file`：把文件下载到当前工作目录。
+- `github_download`：把 GitHub 仓库代码拉到本地工作目录（git clone 优先，zip 兜底）。
+
+装好后在 AI 助手智能体模式里说「搜一下圆柱绕流的资料」「把 barbagroup/CFDPython 拉到本地」，模型会自动调用 `mcp__web__*` 工具；智能体大军的总指挥与队员同样能调。脚本本身就是二次开发模板：照着它把你自己的软件（天气、股价、内部系统…）包成 MCP 工具，在设置页点「＋ 接入 MCP」即可。
 
 ## 插话引导
 
